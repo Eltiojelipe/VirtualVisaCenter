@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VirtualVisaCenter.Shared\VirtualVisaCenter.Shared.csproj" />
     <ProjectReference Include="..\VirtualVisaCenter.WEB\VirtualVisaCenter.WEB.csproj" />
   </ItemGroup>
 
