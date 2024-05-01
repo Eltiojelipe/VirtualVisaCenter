@@ -51,5 +51,9 @@ namespace VirtualVisaCenter.Shared.Entities
 
         public string FullName => $"{FirstName}{LastName}";
 
+        public ICollection<Request> Request { get; set; }
+
+        public ICollection<CriminalRecord> CriminalRecord { get; set;}
+
     }
 }
