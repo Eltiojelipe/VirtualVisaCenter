@@ -42,6 +42,14 @@ namespace VirtualVisaCenter.Shared.Entities
 
         // Archivos adjuntos (esto es solo un ejemplo, puede requerir una implementación personalizada)
         public List<string> Attachments { get; set; }
+
+        public Embassy Embassy { get; set; }    
+
+        public Customer Customer { get; set; }  
+
+        public TypeVIsa TypeVIsa { get; set; }  
+
+        public ICollection<Agenda> Agenda { get; set; } 
     }
 
 

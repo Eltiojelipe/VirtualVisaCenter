@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,5 +48,10 @@ namespace VirtualVisaCenter.Shared.Entities
         // Nombre del embajador
         [StringLength(100, ErrorMessage = "El nombre del embajador no debe exceder los 100 caracteres.")]
         public string Ambassador { get; set; }
+
+        public Country country { get; set; }
+
+        public ICollection<Request> Requests { get; set; }
+
     }
 }

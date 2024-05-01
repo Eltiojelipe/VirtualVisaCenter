@@ -8,5 +8,8 @@ namespace VirtualVisaCenter.Shared.Entities
 {
     public class CriminalRecord
     {
+        public int Id { get; set; }
+
+        public Customer Customer { get; set; }
     }
 }

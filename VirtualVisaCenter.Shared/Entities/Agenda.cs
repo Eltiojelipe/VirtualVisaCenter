@@ -23,5 +23,7 @@ namespace VirtualVisaCenter.Shared.Entities
         [Display(Name = "Disponible")]
         public bool IsAvailable { get; set; }
 
+        public Request Request { get; set; }    
+
     }
 }
