@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace VirtualVisaCenter.Shared.Entities
@@ -19,7 +20,11 @@ namespace VirtualVisaCenter.Shared.Entities
         [Display(Name = "Descripcion")]
         [MaxLength(100, ErrorMessage = "No se permiten más de 100 Caracteres")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        
+        [JsonIgnore]
         public string Description { get; set; }
+        
+        [JsonIgnore]
         public Customer Customer { get; set; }
     }
 }

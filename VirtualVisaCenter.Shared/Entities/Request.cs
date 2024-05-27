@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace VirtualVisaCenter.Shared.Entities
@@ -42,12 +43,17 @@ namespace VirtualVisaCenter.Shared.Entities
 
         // Archivos adjuntos (esto es solo un ejemplo, puede requerir una implementación personalizada)
         public List<string> Attachments { get; set; }
+        [JsonIgnore]
 
-        public Embassy Embassy { get; set; }    
+        public Embassy Embassy { get; set; }
+        [JsonIgnore]
 
-        public Customer Customer { get; set; }  
+        public Customer Customer { get; set; }
+        [JsonIgnore]
 
-        public TypeVIsa TypeVIsa { get; set; }  
+        public TypeVIsa TypeVIsa { get; set; }
+
+        [JsonIgnore]
 
         public ICollection<Agenda> Agenda { get; set; } 
     }

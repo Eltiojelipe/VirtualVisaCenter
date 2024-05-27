@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace VirtualVisaCenter.Shared.Entities
@@ -21,8 +22,11 @@ namespace VirtualVisaCenter.Shared.Entities
         public string Remarks { get; set; }
 
         [Display(Name = "Disponible")]
+
+
         public bool IsAvailable { get; set; }
 
+        [JsonIgnore]
         public Request Request { get; set; }    
 
     }

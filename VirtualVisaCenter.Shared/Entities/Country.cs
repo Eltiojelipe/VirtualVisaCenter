@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace VirtualVisaCenter.Shared.Entities
@@ -21,8 +22,12 @@ namespace VirtualVisaCenter.Shared.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Capital { get; set; }
 
+        [JsonIgnore]
+
         public ICollection<Embassy> Embassy { get; set;}
 
+        [JsonIgnore]
+        
         public ICollection<Rate> Rate { get; set;}
     }
 }
