@@ -1,15 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using VirtualVisaCenter.Shared.DTOs;
-using VirtualVisaCenter.Shared.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using VirtualVisaCenter.API.Helpers;
+using VirtualVisaCenter.Shared.DTOs;
+using VirtualVisaCenter.Shared.Entities;
 using VirualVisaCenter.API.Helpers;
 
-namespace VirualVisaCenter.API.Controllers
+namespace Veterinary.API.Controllers
+
 {
     [ApiController]
     [Route("/api/accounts")]
