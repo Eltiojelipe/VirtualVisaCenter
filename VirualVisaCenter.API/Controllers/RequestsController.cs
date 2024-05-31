@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VirtualVisaCenter.API.Data;
 using VirtualVisaCenter.Shared.Entities;
@@ -6,6 +8,7 @@ using VirtualVisaCenter.Shared.Entities;
 namespace VirualVisaCenter.API.Controllers
 {
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("/api/requests")]
     public class RequestsController : ControllerBase
     {
