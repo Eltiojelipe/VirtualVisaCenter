@@ -15,7 +15,7 @@ builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri("http
 
 builder.Services.AddScoped<IRepository,Repository>();
 
-builder.Services.AddSweetAlert2();
+//builder.Services.AddSweetAlert2();
 
 builder.Services.AddAuthorizationCore();
 
