@@ -57,8 +57,8 @@ namespace Veterinary.API.Controllers
                 }, HttpContext.Request.Scheme, _configuration["UrlWEB"]);
 
                 var response = _mailHelper.SendMail(user.FullName, user.Email!,
-                    $"Veterinarys- Confirmación de cuenta",
-                    $"<h1>Veterinary - Confirmación de cuenta</h1>" +
+                    $"Virtual Visa Center- Confirmación de cuenta",
+                    $"<h1>Virtual Visa Center - Confirmación de cuenta</h1>" +
                     $"<p>Para habilitar el usuario, por favor hacer clic 'Confirmar Email':</p>" +
                     $"<b><a href ={tokenLink}>Confirmar Email</a></b>");
 
@@ -218,6 +218,7 @@ namespace Veterinary.API.Controllers
 
             return NoContent();
         }
+
         [HttpPost("ResedToken")]
         public async Task<ActionResult> ResedToken([FromBody] EmailDTO model)
         {
@@ -235,8 +236,8 @@ namespace Veterinary.API.Controllers
             }, HttpContext.Request.Scheme, _configuration["UrlWEB"]);
 
             var response = _mailHelper.SendMail(user.FullName, user.Email!,
-                $"Veterinarys- Confirmación de cuenta",
-                $"<h1>Veterinary - Confirmación de cuenta</h1>" +
+                $"Virtual Visa Center- Confirmación de cuenta",
+                $"<h1>Virtual Visa Center - Confirmación de cuenta</h1>" +
                 $"<p>Para habilitar el usuario, por favor hacer clic 'Confirmar Email':</p>" +
                 $"<b><a href ={tokenLink}>Confirmar Email</a></b>");
 
@@ -265,8 +266,8 @@ namespace Veterinary.API.Controllers
             }, HttpContext.Request.Scheme, _configuration["UrlWEB"]);
 
             var response = _mailHelper.SendMail(user.FullName, user.Email!,
-                $"Veterinary - Recuperación de contraseña",
-                $"<h1>Veterinary - Recuperación de contraseña</h1>" +
+                $"Virtual Visa Center - Recuperación de contraseña",
+                $"<h1>Virtual Visa Center - Recuperación de contraseña</h1>" +
                 $"<p>Para recuperar su contraseña, por favor hacer clic 'Recuperar Contraseña':</p>" +
                 $"<b><a href ={tokenLink}>Recuperar Contraseña</a></b>");
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using VirtualVisaCenter.Shared.Entities;
 
@@ -21,6 +22,8 @@ namespace VirtualVisaCenter.Shared.DTOs
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [StringLength(20, MinimumLength = 6, ErrorMessage = "El campo {0} debe tener entre {2} y {1} carácteres.")]
+
+        [JsonIgnore]
         public string PasswordConfirm { get; set; } = null!;
     }
 }

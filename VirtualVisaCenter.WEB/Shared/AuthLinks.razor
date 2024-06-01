@@ -17,7 +17,7 @@
     </NotAuthorized>
 </AuthorizeView>
 @code {
-    private string? photoUser;
+    private string photoUser;
 
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; } = null!;

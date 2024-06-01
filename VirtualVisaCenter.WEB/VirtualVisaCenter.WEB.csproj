@@ -11,12 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\Auth\ConfirmEmail.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="AuthenticationProviders\AuthenticationProviderTest.cs" />
-    <None Include="Pages\Auth\ConfirmEmail.razor" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,14 +28,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VirtualVisaCenter.Shared\VirtualVisaCenter.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Auth\ConfirmEmail.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\Auth\ConfirmEmail.razor" />
   </ItemGroup>
 
 </Project>

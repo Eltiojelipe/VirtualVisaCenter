@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace VirtualVisaCenter.Shared.DTOs
 {
@@ -20,8 +21,10 @@ namespace VirtualVisaCenter.Shared.DTOs
         [Display(Name = "Confirmación de contraseña")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [StringLength(20, MinimumLength = 6, ErrorMessage = "El campo {0} debe tener entre {2} y {1} carácteres.")]
-        public string ConfirmPassword { get; set; } = null!;
 
+        [JsonIgnore]
+        public string ConfirmPassword { get; set; } = null!;
+        [JsonIgnore]
         public string Token { get; set; } = null!;
     }
 }

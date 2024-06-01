@@ -1,4 +1,4 @@
-﻿@page "/country"
+﻿@page "/customer"
 @using Microsoft.AspNetCore.Authorization
 @using VirtualVisaCenter.Shared.Entities
 @using VirtualVisaCenter.WEB.Repositories
@@ -7,20 +7,20 @@
 @inject SweetAlertService sweetAlertService
 @inject NavigationManager navigationManager
 
-<h3>Paises</h3>
+<h3>Clientes</h3>
 
 <div class="card">
     <div class="card-header">
         <span>
-            <i class="bi bi-person" /> Paises
-            <a class="btn btn-primary btn-sm float-end" href="/country/create"><i class="bi bi-plus-circle" />Nuevo país</a>
+            <i class="bi bi-person" /> Clientes
+            <a class="btn btn-primary btn-sm float-end" href="/country/create"><i class="bi bi-plus-circle" />Nuevo cliente</a>
 
         </span>
     </div>
 
     <div class="card-body">
 
-        <GenericList MyList="countries">
+        <GenericList MyList="customers">
 
             <Body>
                 <table class="table table-striped">
@@ -30,7 +30,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in countries!)
+                        @foreach (var item in customers!)
                         {
                             <tr>
                                 <td>
@@ -39,14 +39,39 @@
                                 </td>
 
                                 <td>
-                                    @item.Name
-                                </td>
-                                <td>
-                                    @item.Capital
-                                </td>
-                                <td>
                                     @item.Id
                                 </td>
+                                <td>
+                                    @item.Document
+                                </td>
+                                <td>
+                                    @item.FirstName
+                                </td>
+                                <td>
+                                    @item.LastName
+                                </td>
+                                <td>
+                                    @item.DateOfBirth
+                                </td>
+                                <td>
+                                    @item.Email
+                                </td>
+                                <td>
+                                    @item.CellPhone
+                                </td>
+                                <td>
+                                    @item.Address
+                                </td>
+                                <td>
+                                    @item.CellPhone
+                                </td>
+                                <td>
+                                    @item.Request
+                                </td>
+                                <td>
+                                    @item.CriminalRecord
+                                </td>
+   
                             </tr>
                         }
                     </tbody>
@@ -58,7 +83,7 @@
 
 
 @code {
-    public List<Country> countries { get; set; }
+    public List<Customer> customers { get; set; }
 
 
     protected override async Task OnInitializedAsync()
@@ -68,24 +93,24 @@
 
     private async Task LoadAsync()
     {
-        var responseHttp = await repository.GetAsync<List<Country>>("api/countries");
+        var responseHttp = await repository.GetAsync<List<Customer>>("api/customers");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
             return;
         }
-        countries = responseHttp.Response;
+        customers = responseHttp.Response;
     }
 
 
 
-    private async Task DeleteAsycn(Country country)
+    private async Task DeleteAsycn(Customer customer)
     {
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = $"¿Estas seguro de querer borrar: {country.Name}?",
+                Text = $"¿Estas seguro de querer borrar: {customer.FullName}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
             });
@@ -95,12 +120,12 @@
             return;
         }
 
-        var responseHttp = await repository.DeleteAsync<Country>($"api/countries/{country.Id}");
+        var responseHttp = await repository.DeleteAsync<Country>($"api/customers/{customer.Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                navigationManager.NavigateTo("country");
+                navigationManager.NavigateTo("customer");
             }
             else
             {

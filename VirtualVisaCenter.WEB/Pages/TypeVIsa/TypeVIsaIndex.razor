@@ -1,4 +1,4 @@
-﻿@page "/country"
+﻿@page "/typeVisas"
 @using Microsoft.AspNetCore.Authorization
 @using VirtualVisaCenter.Shared.Entities
 @using VirtualVisaCenter.WEB.Repositories
@@ -7,20 +7,20 @@
 @inject SweetAlertService sweetAlertService
 @inject NavigationManager navigationManager
 
-<h3>Paises</h3>
+<h3>Visas</h3>
 
 <div class="card">
     <div class="card-header">
         <span>
-            <i class="bi bi-person" /> Paises
-            <a class="btn btn-primary btn-sm float-end" href="/country/create"><i class="bi bi-plus-circle" />Nuevo país</a>
+            <i class="bi bi-person" /> Tipos
+            <a class="btn btn-primary btn-sm float-end" href="/typeVisas/create"><i class="bi bi-plus-circle" />Nuevo Tipo</a>
 
         </span>
     </div>
 
     <div class="card-body">
 
-        <GenericList MyList="countries">
+        <GenericList MyList="typeVIsas">
 
             <Body>
                 <table class="table table-striped">
@@ -30,7 +30,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in countries!)
+                        @foreach (var item in typeVIsas!)
                         {
                             <tr>
                                 <td>
@@ -39,13 +39,16 @@
                                 </td>
 
                                 <td>
+                                    @item.Id
+                                </td>
+                                <td>
                                     @item.Name
                                 </td>
                                 <td>
-                                    @item.Capital
+                                    @item.Request
                                 </td>
                                 <td>
-                                    @item.Id
+                                    @item.Rate
                                 </td>
                             </tr>
                         }
@@ -58,7 +61,7 @@
 
 
 @code {
-    public List<Country> countries { get; set; }
+    public List<TypeVIsa> typeVIsas { get; set; }
 
 
     protected override async Task OnInitializedAsync()
@@ -68,24 +71,24 @@
 
     private async Task LoadAsync()
     {
-        var responseHttp = await repository.GetAsync<List<Country>>("api/countries");
+        var responseHttp = await repository.GetAsync<List<TypeVIsa>>("/api/typeVisas");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
             return;
         }
-        countries = responseHttp.Response;
+        typeVIsas = responseHttp.Response;
     }
 
 
 
-    private async Task DeleteAsycn(Country country)
+    private async Task DeleteAsycn(TypeVIsa typeVIsa)
     {
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = $"¿Estas seguro de querer borrar: {country.Name}?",
+                Text = $"¿Estas seguro de querer borrar el tipo de visa?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
             });
@@ -95,12 +98,12 @@
             return;
         }
 
-        var responseHttp = await repository.DeleteAsync<Country>($"api/countries/{country.Id}");
+        var responseHttp = await repository.DeleteAsync<TypeVIsa>($"/api/typeVisas{typeVIsa.Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                navigationManager.NavigateTo("country");
+                navigationManager.NavigateTo("typeVIsas");
             }
             else
             {

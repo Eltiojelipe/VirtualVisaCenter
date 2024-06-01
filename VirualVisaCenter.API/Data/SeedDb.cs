@@ -23,7 +23,7 @@ namespace VirualVisaCenter.API.Data
             await _context.Database.EnsureCreatedAsync();
             await CheckTypeVIsasAsync();
             await CheckRolesAsync();
-            await CheckUserAsync("2019","P", "Admin", "oap@yopmail.com", "305232456", "Lo que sea", UserType.Admin);
+            await CheckUserAsync("201907","Sebas", "Admin", "sebasdago.2019@gmail.com", "305232456", "Lo que sea", UserType.Admin);
 
         }
 
