@@ -13,7 +13,7 @@
     <div class="card-header">
         <span>
             <i class="bi bi-person" /> Clientes
-            <a class="btn btn-primary btn-sm float-end" href="/country/create"><i class="bi bi-plus-circle" />Nuevo cliente</a>
+            <a class="btn btn-primary btn-sm float-end" href="/customer/create"><i class="bi bi-plus-circle" />Nuevo cliente</a>
 
         </span>
     </div>
@@ -33,10 +33,7 @@
                         @foreach (var item in customers!)
                         {
                             <tr>
-                                <td>
-                                    <a href="/country/edit/@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square" /> Editar</a>
-                                    <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-sm btn-danger"><i class="bi bi-trash-fill" /> Borrar</button>
-                                </td>
+
 
                                 <td>
                                     @item.Id
@@ -71,7 +68,11 @@
                                 <td>
                                     @item.CriminalRecord
                                 </td>
-   
+                                <td>
+                                    <a href="/customer/edit/@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square" /> Editar</a>
+
+                                    <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-sm btn-danger"><i class="bi bi-trash-fill" /> Borrar</button>
+                                </td>
                             </tr>
                         }
                     </tbody>

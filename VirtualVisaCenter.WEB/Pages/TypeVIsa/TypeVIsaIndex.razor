@@ -10,17 +10,30 @@
 <h3>Visas</h3>
 
 <div class="card">
-    <div class="card-header">
-        <span>
-            <i class="bi bi-person" /> Tipos
-            <a class="btn btn-primary btn-sm float-end" href="/typeVisas/create"><i class="bi bi-plus-circle" />Nuevo Tipo</a>
-
-        </span>
-    </div>
+   
 
     <div class="card-body">
+        <h4>Información sobre los tipos de visa</h4>
+        <ul>
+            <li><strong>Turismo:</strong> Visa para viajeros que desean visitar un país por motivos de turismo.</li>
+            <li><strong>Negocios:</strong> Visa para personas que viajan por motivos de negocios, como reuniones, conferencias o negociaciones.</li>
+            <li><strong>Empleo:</strong> Visa para individuos que tienen una oferta de empleo en el país de destino.</li>
+            <li><strong>Estudios:</strong> Visa para estudiantes que desean estudiar en instituciones educativas en el extranjero.</li>
+            <li><strong>Inmigración:</strong> Visa para personas que desean emigrar y establecerse permanentemente en otro país.</li>
+            <li><strong>Comercio:</strong> Visa para comerciantes y empresarios que desean realizar actividades comerciales en el país de destino.</li>
+            <li><strong>Inversión:</strong> Visa para individuos que planean realizar inversiones significativas en el país de destino.</li>
+            <li><strong>Intercambio:</strong> Visa para participantes en programas de intercambio cultural, educativo o profesional.</li>
+            <li><strong>Adopción:</strong> Visa para padres adoptivos que desean adoptar un niño en el país de destino.</li>
+        </ul>
 
-        <GenericList MyList="typeVIsas">
+        <div class="card-header">
+        <span>
+        <i class="bi bi-person" /> ¿Deseas iniciar tu solicitud?
+        <a class="btn btn-primary btn-sm float-center" href="/typeVisas/create"><i class="bi bi-plus-circle" />Solicita la tuya</a>
+
+        </span>
+        </div>
+       @*  <GenericList MyList="typeVIsas">
 
             <Body>
                 <table class="table table-striped">
@@ -44,9 +57,7 @@
                                 <td>
                                     @item.Name
                                 </td>
-                                <td>
-                                    @item.Request
-                                </td>
+                                
                                 <td>
                                     @item.Rate
                                 </td>
@@ -55,12 +66,12 @@
                     </tbody>
                 </table>
             </Body>
-        </GenericList>
+        </GenericList> *@
     </div>
 </div>
 
 
-@code {
+@* @code {
     public List<TypeVIsa> typeVIsas { get; set; }
 
 
@@ -124,4 +135,4 @@
         await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro borrado con éxito.");
     }
 
-}
+} *@

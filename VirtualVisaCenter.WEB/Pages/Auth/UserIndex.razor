@@ -1,0 +1,68 @@
+﻿@page "/users"
+@using Microsoft.AspNetCore.Authorization;
+
+@inject IRepository repository
+@inject NavigationManager navigationManager
+@inject SweetAlertService sweetAlertService
+@attribute [Authorize(Roles = "Admin")]
+
+@if (Users is null)
+{
+    <div class="spinner" />
+}
+else
+{
+   <GenericList MyList="Users">
+       <Body>
+           <div class="card">
+               <div class="card-header">
+                   <span>
+                        <i class="oi oi-people"></i> Usuarios
+                        <a class="btn btn-sm btn-primary float-end" href="/register/?IsAdmin=true"><i class="oi oi-plus"></i> Adicionar Administrador</a>
+
+                   </span>
+               </div>
+
+               <table class="table table-striped">
+                   <thead>
+                       <tr>
+                            <th>Imagén</th>
+                            <th>Usuario</th>
+                            <th>Documento</th>
+                            <th>Teléfono</th>
+                            <th>Email</th>
+                            <th>Dirección</th>
+                            <th>Confirmado</th>
+                            <th>Tipo Usuario</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       @foreach(var user in Users){
+                           <tr>
+                                <td><img src="@user.Photo" width="80" height="80" style="border-radius:50%" /></td>
+                                <td>@user.FullName</td>
+                                <td>@user.Document</td>
+                                <td>@user.PhoneNumber</td>
+                                <td>@user.Email</td>
+                                <td>@user.Address</td>
+                                <td>@user.EmailConfirmed</td>
+                                <td>@user.UserType</td>
+
+                           </tr>
+                       }
+                   </tbody>
+               </table>
+           </div>
+       </Body>
+
+   </GenericList>
+}
+
+@code {
+    public List<User> Users { get; set; }
+  
+    protected async override Task OnInitializedAsync()
+    {
+        await LoadAsync();
+    }
+}

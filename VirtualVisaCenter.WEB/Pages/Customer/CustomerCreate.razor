@@ -1,0 +1,48 @@
+﻿@page "/customer/create"
+@inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService sweetAlertService
+
+@using Microsoft.AspNetCore.Authorization;
+
+
+<h3>Crear</h3>
+
+<CustomerForm @ref="customerForm" Customer ="customer" OnValidSubmit="Create" ReturnAction="Return"/>
+
+@code {
+    private Customer customer = new Customer();
+    private CustomerForm customerForm;
+
+    private async Task Create()
+    {
+        var responseHttp = await repository.PostAsync("/api/customers", customer);
+        if (responseHttp.Error)
+        {
+
+            var message = await responseHttp.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message);
+            return;
+        }
+
+        Return();
+        var toast = sweetAlertService.Mixin(new SweetAlertOptions
+            {
+
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
+            });
+
+        await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con éxito");
+    }
+
+
+    private void Return()
+    {
+        customerForm!.FormularioPosteadoConExito = true;
+        navigationManager.NavigateTo("/customer");
+
+    }
+}

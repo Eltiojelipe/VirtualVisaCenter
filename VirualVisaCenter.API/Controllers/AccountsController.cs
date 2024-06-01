@@ -9,11 +9,14 @@ using VirtualVisaCenter.API.Helpers;
 using VirtualVisaCenter.Shared.DTOs;
 using VirtualVisaCenter.Shared.Entities;
 using VirualVisaCenter.API.Helpers;
+using Microsoft.EntityFrameworkCore;
+using VirtualVisaCenter.API.Data;
 
 namespace Veterinary.API.Controllers
 
 {
     [ApiController]
+
     [Route("/api/accounts")]
     public class AccountsController : ControllerBase
     {
@@ -22,14 +25,32 @@ namespace Veterinary.API.Controllers
         private readonly IFileStorage _fileStorage;
         private readonly string _container;
         private readonly IMailHelper _mailHelper;
-        public AccountsController(IUserHelper userHelper, IConfiguration configuration, IFileStorage fileStorage, IMailHelper mailHelper)
+        private readonly DataContext _context;
+        public AccountsController(IUserHelper userHelper, IConfiguration configuration, IFileStorage fileStorage, IMailHelper mailHelper, DataContext context)
         {
             _userHelper = userHelper;
             _configuration = configuration;
             _fileStorage = fileStorage;
             _container = "users";
+            _context = context;
             _mailHelper = mailHelper;
         }
+
+        [HttpGet()]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult> GetAll([FromQuery])
+        {
+            var queryable = _context.Users
+                .AsQueryable();
+
+            return Ok(await queryable
+                .OrderBy(x => x.FirstName)
+                .ThenBy(x => x.LastName)
+                .ToListAsync());
+        }
+
+
+
 
         [HttpPost("CreateUser")]
         public async Task<ActionResult> CreateUser([FromBody] UserDTO model)
@@ -297,6 +318,7 @@ namespace Veterinary.API.Controllers
             return BadRequest(result.Errors.FirstOrDefault()!.Description);
         }
 
+       
 
     }
 }
