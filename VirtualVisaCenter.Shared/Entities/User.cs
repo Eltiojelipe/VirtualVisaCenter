@@ -30,7 +30,7 @@ namespace VirtualVisaCenter.Shared.Entities
         [Display(Name = "Foto")]
         public string Photo { get; set; }
 
-        [JsonIgnore]
+     
         public UserType UserType { get; set; }
 
         public string FullName => $"{FirstName}{LastName}";
