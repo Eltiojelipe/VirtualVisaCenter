@@ -1,0 +1,125 @@
+﻿@inject SweetAlertService swal
+@using Microsoft.AspNetCore.Authorization;
+
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="mb-3">
+        <label>Nombre de la embajada: </label>
+        <div>
+            <InputText width="10" @bind-Value="Embassy.Name"></InputText>
+            <ValidationMessage For="@(() => Embassy.Name)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Nombre del país:</label>
+        <div>
+            <InputText width="10" @bind-Value="Embassy.Country"></InputText>
+            <ValidationMessage For="@(() => Embassy.Country)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Dirección de la embajada:</label>
+        <div>
+            <InputText width="10" @bind-Value="Embassy.Address"></InputText>
+            <ValidationMessage For="@(() => Embassy.Address)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Teléfono de la embajada:</label>
+        <div>
+            <InputText width="10" @bind-Value="Embassy.Phone"></InputText>
+            <ValidationMessage For="@(() => Embassy.Phone)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Horario de atención de la embajada:</label>
+        <div>
+            <InputText width="100" @bind-Value="Embassy.OfficeHours"></InputText>
+            <ValidationMessage For="@(() => Embassy.OfficeHours)" /> 
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Página web de la embajada:</label>
+        <div>
+            <InputText width="100" @bind-Value="Embassy.Website"></InputText>
+            <ValidationMessage For="@(() => Embassy.Website)" /> 
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Nombre del embajador:</label>
+        <div>
+            <InputText width="100" @bind-Value="Embassy.Ambassador"></InputText>
+            <ValidationMessage For="@(() => Embassy.Ambassador)" />
+        </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit"><i class="bi bi-floppy" />Guardar Cambios</button>
+    <button class="btn btn-info" type="reset"><i class="bi bi-x-circle" />Limpiar</button>
+    <button class="btn btn-success" onclick="ReturnAction"><i class="bi bi-arrow-left" />Regresar</button>
+</EditForm>
+
+@code {
+
+    private EditContext editContext = null!;
+    protected override void OnInitialized()
+    {
+        editContext = new(Embassy);
+    }
+
+    [Parameter]
+    [EditorRequired]
+    public Embassy Embassy { get; set; } = null!;
+
+    [Parameter]
+    [EditorRequired]
+    public EventCallback OnValidSubmit { get; set; }
+
+
+    [EditorRequired]
+    [Parameter]
+    public EventCallback ReturnAction { get; set; }
+
+    public bool FormularioPosteadoConExito { get; set; } = false;
+
+
+
+    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
+    {
+        var formularioFueEditado = editContext.IsModified();
+
+        if (!formularioFueEditado)
+        {
+            return;
+        }
+
+        if (FormularioPosteadoConExito)
+        {
+            return;
+        }
+
+        var resultado = await swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmación",
+                Text = "¿Deseas abandonar la página y perder los cambios?",
+                Icon = SweetAlertIcon.Warning,
+                ShowCancelButton = true
+            });
+
+        var confirmado = !string.IsNullOrEmpty(resultado.Value);
+
+        if (confirmado)
+        {
+            return;
+        }
+
+        context.PreventNavigation();
+    }
+}

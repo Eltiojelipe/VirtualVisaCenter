@@ -1,0 +1,77 @@
+﻿@page "/embassy/edit/{Id:int}"
+@using System.Net
+@inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService sweetAlertService
+
+@using Microsoft.AspNetCore.Authorization;
+
+<h3>Editar</h3>
+
+@if (embassy is null)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <EmbassyForm @ref="embassyForm" Embassy="embassy" OnValidSubmit="Editar" ReturnAction="Return" />
+}
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+    private Embassy embassy = new Embassy();
+    private EmbassyForm embassyForm;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var responseHttp = await repository.GetAsync<Embassy>($"api/embassies/{Id}");
+        if (responseHttp.Error)
+        {
+            if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("/embassy");
+            }
+            else
+            {
+                var messsage = await responseHttp.GetErrorMessageAsync();
+                await sweetAlertService.FireAsync("Error", messsage, SweetAlertIcon.Error);
+            }
+        }
+        else
+        {
+            embassy = responseHttp.Response;
+        }
+    }
+
+
+    private async Task Editar()
+    {
+        var responseHttp = await repository.PutAsync("/api/embassies", embassy);
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message);
+            return;
+        }
+
+        Return();
+        var toast = sweetAlertService.Mixin(new SweetAlertOptions
+            {
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
+            });
+        await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Cambios guardados con éxito.");
+    }
+
+    private void Return()
+    {
+        embassyForm!.FormularioPosteadoConExito = true;
+        navigationManager.NavigateTo("/embassy");
+    }
+
+}
+
