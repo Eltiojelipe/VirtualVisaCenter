@@ -12,7 +12,7 @@ using VirualVisaCenter.API.Helpers;
 using Microsoft.EntityFrameworkCore;
 using VirtualVisaCenter.API.Data;
 
-namespace Veterinary.API.Controllers
+namespace VirtualVisaCenter.API.Controllers
 
 {
     [ApiController]
@@ -36,18 +36,18 @@ namespace Veterinary.API.Controllers
             _mailHelper = mailHelper;
         }
 
-        [HttpGet()]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> GetAll([FromQuery])
-        {
-            var queryable = _context.Users
-                .AsQueryable();
+        //[HttpGet()]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //public async Task<ActionResult> GetAll([FromQuery])
+        //{
+        //    var queryable = _context.Users
+        //        .AsQueryable();
 
-            return Ok(await queryable
-                .OrderBy(x => x.FirstName)
-                .ThenBy(x => x.LastName)
-                .ToListAsync());
-        }
+        //    return Ok(await queryable
+        //        .OrderBy(x => x.FirstName)
+        //        .ThenBy(x => x.LastName)
+        //        .ToListAsync());
+        //}
 
 
 
