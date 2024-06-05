@@ -1,4 +1,4 @@
-﻿@page "/agenda/create"
+﻿@page "/request/create"
 @inject NavigationManager navigationManager
 @inject IRepository repository
 @inject SweetAlertService sweetAlertService
@@ -8,15 +8,15 @@
 
 <h3>Crear</h3>
 
-<AgendaForm @ref="agendaForm" Agenda ="agenda" OnValidSubmit="Create" ReturnAction="Return"/>
+<RequestForm @ref="requestForm" Request ="request" OnValidSubmit="Create" ReturnAction="Return"/>
 
 @code {
-    private Agenda agenda = new Agenda();
-    private AgendaForm agendaForm;
+    private Request request = new Request();
+    private RequestForm requestForm;
 
     private async Task Create()
     {
-        var responseHttp = await repository.PostAsync("/api/agendas", agenda);
+        var responseHttp = await repository.PostAsync("/api/requests", request);
         if (responseHttp.Error)
         {
 
@@ -41,8 +41,8 @@
 
     private void Return()
     {
-        agendaForm!.FormularioPosteadoConExito = true;
-        navigationManager.NavigateTo("/agenda");
+        requestForm!.FormularioPosteadoConExito = true;
+        navigationManager.NavigateTo("/request");
 
     }
 }

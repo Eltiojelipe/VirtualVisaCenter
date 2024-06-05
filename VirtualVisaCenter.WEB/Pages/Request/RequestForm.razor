@@ -1,0 +1,108 @@
+﻿@inject SweetAlertService swal
+@using Microsoft.AspNetCore.Authorization;
+
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="mb-3">
+        <label>Fecha de la solicitud:</label>
+        <div>
+            <InputDate @bind-Value="Request.RequestDateTime" class="form-control" />
+            <ValidationMessage For="@(() => Request.RequestDateTime)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Tipo de solicitud:</label>
+        <div>
+            <InputText width="10" @bind-Value="Request.RequestType"></InputText>
+            <ValidationMessage For="@(() => Request.RequestType)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Descripción:</label>
+        <div>
+            <InputText width="10" @bind-Value="Request.Description"></InputText>
+            <ValidationMessage For="@(() => Request.Description)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Estado:</label>
+        <div>
+            <InputText width="50" @bind-Value="Request.Status"></InputText>
+            <ValidationMessage For="@(() => Request.Status)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Comentarios:</label>
+        <div>
+            <InputText width="100" @bind-Value="Request.Comments"></InputText>
+            <ValidationMessage For="@(() => Request.Comments)" />
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit"><i class="bi bi-floppy" />Guardar Cambios</button>
+    <button class="btn btn-info" type="reset"><i class="bi bi-x-circle" />Limpiar</button>
+    <button class="btn btn-success" onclick="ReturnAction"><i class="bi bi-arrow-left" />Regresar</button>
+</EditForm>
+
+@code {
+
+    private EditContext editContext = null!;
+    protected override void OnInitialized()
+    {
+        editContext = new(Request);
+    }
+
+    [Parameter]
+    [EditorRequired]
+    public Request Request { get; set; } = null!;
+
+    [Parameter]
+    [EditorRequired]
+    public EventCallback OnValidSubmit { get; set; }
+
+
+    [EditorRequired]
+    [Parameter]
+    public EventCallback ReturnAction { get; set; }
+
+    public bool FormularioPosteadoConExito { get; set; } = false;
+
+
+
+    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
+    {
+        var formularioFueEditado = editContext.IsModified();
+
+        if (!formularioFueEditado)
+        {
+            return;
+        }
+
+        if (FormularioPosteadoConExito)
+        {
+            return;
+        }
+
+        var resultado = await swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmación",
+                Text = "¿Deseas abandonar la página y perder los cambios?",
+                Icon = SweetAlertIcon.Warning,
+                ShowCancelButton = true
+            });
+
+        var confirmado = !string.IsNullOrEmpty(resultado.Value);
+
+        if (confirmado)
+        {
+            return;
+        }
+
+        context.PreventNavigation();
+    }
+}
