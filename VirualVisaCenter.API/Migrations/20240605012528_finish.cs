@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace VirualVisaCenter.API.Migrations
 {
     /// <inheritdoc />
-    public partial class bd : Migration
+    public partial class finish : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -260,6 +260,7 @@ namespace VirualVisaCenter.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Cost = table.Column<float>(type: "real", nullable: false),
                     CountryId = table.Column<int>(type: "int", nullable: true),
                     TypeVIsaId = table.Column<int>(type: "int", nullable: true)
                 },

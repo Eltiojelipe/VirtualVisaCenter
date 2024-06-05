@@ -12,8 +12,8 @@ using VirtualVisaCenter.API.Data;
 namespace VirualVisaCenter.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240531230216_bd")]
-    partial class bd
+    [Migration("20240605012528_finish")]
+    partial class finish
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -341,6 +341,9 @@ namespace VirualVisaCenter.API.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<float>("Cost")
+                        .HasColumnType("real");
 
                     b.Property<int?>("CountryId")
                         .HasColumnType("int");

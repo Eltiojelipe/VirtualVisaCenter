@@ -339,6 +339,9 @@ namespace VirualVisaCenter.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<float>("Cost")
+                        .HasColumnType("real");
+
                     b.Property<int?>("CountryId")
                         .HasColumnType("int");
 
