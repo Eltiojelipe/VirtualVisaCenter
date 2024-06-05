@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -13,7 +14,7 @@ namespace VirtualVisaCenter.Shared.Entities
     {
         public int Id {  get; set; }
 
-        public float Cost { get; }
+        public float Cost { get; set; }
 
         [JsonIgnore]
         public Country Country { get; set; }
@@ -21,3 +22,5 @@ namespace VirtualVisaCenter.Shared.Entities
         public TypeVIsa TypeVIsa { get; set; }
     }
 }
+
+

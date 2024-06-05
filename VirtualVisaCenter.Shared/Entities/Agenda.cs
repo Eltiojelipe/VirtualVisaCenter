@@ -18,7 +18,7 @@ namespace VirtualVisaCenter.Shared.Entities
 
 
         [Display(Name = "Observación")]
-        [StringLength(500, ErrorMessage = "Las observaciones no deben exceder los 250 caracteres.")]
+        [StringLength(500, ErrorMessage = "Las observaciones no deben exceder los 500 caracteres.")]
         public string Remarks { get; set; }
 
         [Display(Name = "Disponible")]
